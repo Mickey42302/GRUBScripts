@@ -1,0 +1,43 @@
+#!/bin/sh
+exec tail -n +3 $0
+# This file provides an easy way to add custom menu entries. Simply type the
+# menu entries you want to add after this comment. Be careful not to change
+# the 'exec tail' line above.
+
+# If you have a dual-boot system, this script can be used to add the Windows Recovery Environment to the GRUB menu.
+# This is useful if you need to access the recovery tools for your Windows installation.
+# For this script to work, you have to replace "0000-0000" with the respective ID for your installation. You also need to have the OS Prober feature enabled.
+menuentry 'Windows Recovery Environment' --class windows --class os --unrestricted $menuentry_id_option 'osprober-efi-0000-0000' {
+       insmod part_gpt
+       insmod fat
+       search --no-floppy --fs-uuid --set=root 0000-0000
+       chainloader /EFI/Microsoft/Boot/bootmgfw.efi /RecoveryBCD
+}
+
+# This script can be used to open a rescue shell for GRUB.
+menuentry "GRUB rescue shell" {
+        clear
+        echo "Launching rescue shell..."
+        normal_exit
+}
+
+# This script reboots the device.
+menuentry "Reboot" --unrestricted {
+        clear
+        echo "Rebooting..."
+        reboot
+}
+
+# This script shuts down the device.
+menuentry "Shutdown" --unrestricted {
+        clear
+        echo "Shutting down..."
+        halt
+}
+
+# This script exits the GRUB menu.
+menuentry "Exit" --unrestricted {
+        clear
+        echo "Exiting..."
+        exit
+}
