@@ -36,8 +36,9 @@ menuentry "Shutdown" --unrestricted {
 }
 
 # This script exits the GRUB menu.
-menuentry "Exit" --unrestricted {
-        clear
-        echo "Exiting..."
-        exit
-}
+# The results of this script vary between devices, so it is commented out by default.
+# menuentry "Exit" --unrestricted {
+#         clear
+#         echo "Exiting..."
+#         exit
+# }
